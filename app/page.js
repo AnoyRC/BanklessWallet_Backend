@@ -7,9 +7,10 @@ import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 import { Web3AuthNoModal } from "@web3auth/no-modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import RPC from "./ethersRPC";
+import { Wallet } from "ethers";
 
 const clientId =
-  "BA2stbOXA-r6JT9BKq9lsmEeE4rpoAAsQlyUkp1XdYQGcrcUzYYwtRvHEGXRjvkdOQRKMrWF8-Hhcqsy5YBBPVg";
+  "BMp4VIaKPIVxwFyc4hvw__GFykssXVozUzaInLCPzkOuAQZf32xy4OEjyJzfOr7vgPeawBxSb-WbTRwZVUjwPPM";
 
 const LOGIN_PROVIDER = {
   GOOGLE: "google",
@@ -52,7 +53,7 @@ export default function Home() {
       const web3authInstance = new Web3AuthNoModal({
         clientId,
         chainConfig,
-        web3AuthNetwork: "cyan",
+        web3AuthNetwork: "testnet",
       });
 
       setWeb3auth(web3authInstance);
@@ -63,7 +64,33 @@ export default function Home() {
 
       const openloginAdapter = new OpenloginAdapter({
         privateKeyProvider,
+        adapterSettings: {
+          clientId,
+          uxMode: "popup",
+          loginConfig: {
+            google: {
+              verifier: "bankless-wallet",
+              verifierSubIdentifier: "google",
+              typeOfLogin: "google",
+              clientId:
+                "846402209759-e0se0jbplnrgk2itnirbadsgme32evu3.apps.googleusercontent.com",
+            },
+            auth0github: {
+              verifier: "bankless-wallet",
+              verifierSubIdentifier: "github",
+              typeOfLogin: "jwt",
+              clientId: "eTOeHfBcsN9vzvBkyZSqRzeQcXKvbu7A",
+            },
+            auth0emailpasswordless: {
+              verifier: "bankless-wallet",
+              verifierSubIdentifier: "emailpasswordless",
+              typeOfLogin: "jwt",
+              clientId: "eTOeHfBcsN9vzvBkyZSqRzeQcXKvbu7A",
+            },
+          },
+        },
       });
+
       web3authInstance.configureAdapter(openloginAdapter);
 
       await web3authInstance.init();
@@ -96,15 +123,20 @@ export default function Home() {
   };
 
   const loginWithEmail = async () => {
-    if (!web3auth || email.length === 0) {
+    if (!web3auth) {
+      uiConsole("web3auth not initialized yet");
       return;
     }
     const web3authProvider = await web3auth.connectTo(
       WALLET_ADAPTERS.OPENLOGIN,
       {
-        loginProvider: LOGIN_PROVIDER.EMAIL,
+        loginProvider: "auth0emailpasswordless",
         extraLoginOptions: {
-          login_hint: email,
+          domain: "https://dev-pekknv1gkulrlnlq.us.auth0.com",
+          // this corresponds to the field inside jwt which must be used to uniquely
+          // identify the user. This is mapped b/w google and email passwordless logins of Auth0
+          verifierIdField: "email",
+          isVerifierIdCaseSensitive: false,
         },
       }
     );
@@ -220,10 +252,19 @@ export default function Home() {
     uiConsole(privateKey);
   };
 
+  const createWallet = async () => {
+    const wallet = Wallet.createRandom();
+    uiConsole(wallet);
+    console.log(wallet);
+  };
+
   return (
     <main className="flex flex-col justify-center items-center w-screen h-screen">
       <button onClick={login} className="bg-red-500 rounded-md p-2">
         Login with Google
+      </button>
+      <button onClick={createWallet} className="mt-5 bg-red-500 rounded-md p-2">
+        createWallet
       </button>
       <input
         type="email"

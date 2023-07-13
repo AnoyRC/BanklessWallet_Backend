@@ -14,6 +14,7 @@
     "@web3auth/modal": "^6.1.1",
     "@web3auth/no-modal": "^6.1.1",
     "@web3auth/openlogin-adapter": "^6.1.1",
+    "@xmtp/xmtp-js": "^9.1.7",
     "autoprefixer": "10.4.14",
     "ethers": "^6.6.0",
     "next": "13.4.6",
