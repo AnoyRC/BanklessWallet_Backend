@@ -69,23 +69,23 @@ export default function Home() {
           uxMode: "popup",
           loginConfig: {
             google: {
-              verifier: "bankless-wallet",
+              verifier: "bankless-cyan",
               verifierSubIdentifier: "google",
               typeOfLogin: "google",
               clientId:
                 "846402209759-e0se0jbplnrgk2itnirbadsgme32evu3.apps.googleusercontent.com",
             },
             auth0github: {
-              verifier: "bankless-wallet",
+              verifier: "bankless-cyan",
               verifierSubIdentifier: "github",
               typeOfLogin: "jwt",
-              clientId: "dev-pekknv1gkulrlnlq.us.auth0.com",
+              clientId: "https://dev-pekknv1gkulrlnlq.us.auth0.com",
             },
             auth0emailpasswordless: {
-              verifier: "bankless-wallet",
+              verifier: "bankless-cyan",
               verifierSubIdentifier: "emailpasswordless",
               typeOfLogin: "jwt",
-              clientId: "dev-pekknv1gkulrlnlq.us.auth0.com",
+              clientId: "https://dev-pekknv1gkulrlnlq.us.auth0.com",
             },
           },
         },
