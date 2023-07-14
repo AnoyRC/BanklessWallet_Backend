@@ -10,7 +10,7 @@ import RPC from "./ethersRPC";
 import { Wallet } from "ethers";
 
 const clientId =
-  "BMp4VIaKPIVxwFyc4hvw__GFykssXVozUzaInLCPzkOuAQZf32xy4OEjyJzfOr7vgPeawBxSb-WbTRwZVUjwPPM";
+  "BA2stbOXA-r6JT9BKq9lsmEeE4rpoAAsQlyUkp1XdYQGcrcUzYYwtRvHEGXRjvkdOQRKMrWF8-Hhcqsy5YBBPVg";
 
 const LOGIN_PROVIDER = {
   GOOGLE: "google",
@@ -53,7 +53,7 @@ export default function Home() {
       const web3authInstance = new Web3AuthNoModal({
         clientId,
         chainConfig,
-        web3AuthNetwork: "testnet",
+        web3AuthNetwork: "cyan",
       });
 
       setWeb3auth(web3authInstance);
@@ -79,13 +79,13 @@ export default function Home() {
               verifier: "bankless-wallet",
               verifierSubIdentifier: "github",
               typeOfLogin: "jwt",
-              clientId: "eTOeHfBcsN9vzvBkyZSqRzeQcXKvbu7A",
+              clientId: "dev-pekknv1gkulrlnlq.us.auth0.com",
             },
             auth0emailpasswordless: {
               verifier: "bankless-wallet",
               verifierSubIdentifier: "emailpasswordless",
               typeOfLogin: "jwt",
-              clientId: "eTOeHfBcsN9vzvBkyZSqRzeQcXKvbu7A",
+              clientId: "dev-pekknv1gkulrlnlq.us.auth0.com",
             },
           },
         },
@@ -133,8 +133,6 @@ export default function Home() {
         loginProvider: "auth0emailpasswordless",
         extraLoginOptions: {
           domain: "https://dev-pekknv1gkulrlnlq.us.auth0.com",
-          // this corresponds to the field inside jwt which must be used to uniquely
-          // identify the user. This is mapped b/w google and email passwordless logins of Auth0
           verifierIdField: "email",
           isVerifierIdCaseSensitive: false,
         },
